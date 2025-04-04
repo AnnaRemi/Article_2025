@@ -99,6 +99,29 @@ class DebertaV2ForAIDetection(DebertaV2PreTrainedModel):
             "loss": loss,
         }
 
+    def print_layer_info(self):
+        """
+        Prints the number of layers in the model and their trainable status.
+        Also shows total number of trainable parameters.
+        """
+        # Get the number of layers from the encoder
+        num_layers = len(self.deberta.encoder.layer)
+        print(f"\nModel Architecture Info:")
+        print(f"- Total layers in DeBERTa encoder: {num_layers}")
+
+        # Count trainable vs frozen layers
+        trainable_layers = 0
+        for i, layer in enumerate(self.deberta.encoder.layer):
+            if any(p.requires_grad for p in layer.parameters()):
+                trainable_layers += 1
+                status = "Trainable"
+            else:
+                status = "Frozen"
+            print(f"  Layer {i + 1}/{num_layers}: {status}")
+
+        print(f"\n- Trainable layers: {trainable_layers}/{num_layers}")
+        print(f"- Trainable heads: Human-AI and {self.ai_model_head.out_features}-way AI classifier")
+
 
 
 

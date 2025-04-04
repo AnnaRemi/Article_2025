@@ -149,4 +149,4 @@ class DebertaV2ForAIDetectionWithLoRA(DebertaV2PreTrainedModel):
 
         print(f"\n- Trainable layers: {trainable_layers}/{num_layers}")
         print(f"- Trainable heads: Human-AI and {self.ai_model_head.out_features}-way AI classifier")
-        self.print_trainable_parameters()  # Reuse existing parameter counter
+        self.print_trainable_parameters()
